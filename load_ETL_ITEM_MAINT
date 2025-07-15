@@ -1,0 +1,119 @@
+# PySpark Conversion of m_Load_EBS_ITEM_MAINT.XML Informatica Workflow
+# This notebook converts the Informatica workflow m_Load_EBS_ITEM_MAINT.XML to PySpark
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+import logging
+
+# Initialize Spark Session
+spark = SparkSession.builder \
+    .appName("load_EBS_ITEM_MAINT_ETL") \
+    .config("spark.sql.adaptive.enabled", "true") \
+    .config("spark.sql.adaptive.coalescePartitions.enabled", "true") \
+    .getOrCreate()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+print("Spark Session initialized successfully")
+print(f"Spark Version: {spark.version}")
+
+# =============================================================================
+# DATA SOURCE CONFIGURATION
+# =============================================================================
+
+# Database connection parameters
+# Note: Replace with actual connection details
+DB_CONFIG = {
+    "zdss": {
+        "url": "jdbc:oracle:thin:@//zdss-host:1521/zdss_service",
+        "driver": "oracle.jdbc.driver.OracleDriver",
+        "user": "zdss_user",
+        "password": "zdss_password"
+    },
+    "euroaims": {
+        "url": "jdbc:oracle:thin:@//euroaims-host:1521/euroaims_service", 
+        "driver": "oracle.jdbc.driver.OracleDriver",
+        "user": "euroaims_user",
+        "password": "euroaims_password"
+    },
+    "target": {
+        "url": "jdbc:teradata://teradata-host/DATABASE=EDW",
+        "driver": "com.teradata.jdbc.TeraDriver",
+        "user": "edw_user",
+        "password": "edw_password"
+    }
+    "source": {
+        "url": "jdbc:teradata://teradata-host/DATABASE=Teradata DEV",
+        "driver": "com.teradata.jdbc.TeraDriver",
+        "user": "edw_user",
+        "password": "edw_password"
+    }
+}
+
+# Define the source schema based on the SQL query from Load_EBS_ITEM_MAINT
+source_schema = StructType([
+    StructField("DODAAC", StringType(), True),
+    StructField("batch_seq_nbr", IntegerType(11,0), True),
+    StructField("item_id", DecimalType(20,0), True),
+    StructField("efft_dt", DateType(19,0), True),
+    StructField("ext_prc", DecimalType(12,0), True),
+    StructField("store_nbr", SmallintType(6,0), True),
+    StructField("item_desc", StringType(), True),
+    StructField("item_shrt_desc", StringType(), True),
+    StructField("brnd_nm", StringType(), True),
+    StructField("item_typ_cd", SmallintType (6,0), True),
+    StructField("prc_meth_cd", SmallintType (6,0), True),
+    StructField("dept", SmallintType (6,0), True),
+    StructField("family_cd_1", SmallintType (6,0), True),
+    StructField("family_cd_2", SmallintType (6,0), True),
+    StructField("deal_qty", SmallintType (6,0), True),
+    StructField("host_sale_prc", DecimalType(12,0), True),
+    StructField("rptg_code", SmallintType (6,0), True),
+    StructField("category_nbr", StringType(), True),
+    StructField("um_cd", StringType(), True),
+    StructField("item_size", DecimalType(9,0), True),
+    StructField("case_pack", IntegerType(), True),
+    StructField("vendor_nbr", StringType(), True),
+    StructField("vendor_item_nbr", IntegerType(), True),
+    StructField("delete_dt", DateType(19,0), True),
+    StructField("resrestruitricted_sale_typ_desc", StringType(), True),
+    StructField("tax_typ", StringType(), True),
+    StructField("no_shelf_label", StringType(), True),
+    StructField("req_prc_fl", StringType(), True),
+    StructField("weigh_item_fl", StringType(), True),
+    StructField("req_qty_fl", StringType(), True),
+    StructField("prhbt_qty_fl", StringType(), True),
+    StructField("tax_plan_fl_1", StringType(), True),
+    StructField("tax_plan_fl_2", StringType(), True),
+    StructField("tax_plan_fl_3", StringType(), True),
+    StructField("tax_plan_fl_4", StringType(), True),
+    StructField("food_stamp_fl", StringType(), True),
+    StructField("deposit_fl", StringType(), True),
+    StructField("gift_card_actvn", SmallintType (6,0), True),
+    StructField("link_item", StringType(), True),
+    StructField("batch_id", StringType(), True),
+    StructField("discount_fl", StringType(), True),
+    StructField("auth_fl", StringType(), True),
+    StructField("log_all_sales_fl", StringType(), True),
+    StructField("no_item_mvmnt_fl", StringType(), True),
+    StructField("prhbt_mult_coup_fl", StringType(), True),
+    StructField("shelf_loc", SmallintType (6,0), True),
+    StructField("wic_item_fl", StringType(), True),
+    StructField("restricted_sale_typ_cd", StringType(), True),
+    StructField("tare_cd", SmallintType (6,0), True),
+    StructField("status_cd", StringType(), True),
+    StructField("cost_prc", DecimalType(12,0), True),
+    StructField("adjust_prc", DecimalType(12,0), True),
+    StructField("std_item_add_dt", DateType(19,0), True),
+    StructField("regn_item_del_fl", StringType(), True),
+    StructField("rsl_cd", StringType(), True),
+    StructField("promo_typ", SmallintType (6,0), True),
+    StructField("end_dt", DateType(19,0), True),
+    StructField("ebs_category", StringType(), True),
+    StructField("update_dt", TimestampType(), True),
+    StructField("update_fl", StringType(), True),
+    StructField("insert_dt", TimestampType(), True),
+    StructField("ebs_row_state", StringType(), True),
