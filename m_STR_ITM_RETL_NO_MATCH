@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE POWERMART SYSTEM "powrmart.dtd">
+<POWERMART CREATION_DATE="07/24/2025 12:04:48" REPOSITORY_VERSION="188.97">
+<REPOSITORY NAME="REP_SVC_PROD" VERSION="188" CODEPAGE="Latin1" DATABASETYPE="Oracle">
+<FOLDER NAME="EDW_RETAIL_DM" GROUP="" OWNER="Administrator" SHARED="NOTSHARED" DESCRIPTION="" PERMISSIONS="rwx---r--" UUID="89ca5b5f-8ec5-4b64-9c74-b3791faa9fd2">
+    <MAPPING DESCRIPTION ="" ISVALID ="YES" NAME ="m_STR_ITM_RETL_NO_MATCH" OBJECTVERSION ="1" VERSIONNUMBER ="1">
+        <TRANSFORMATION DESCRIPTION ="" NAME ="exp_Create_Item_Row" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Expression" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="STORE_ITEM_KEY" EXPRESSIONTYPE ="GENERAL" NAME ="STORE_ITEM_KEY" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="exp_ITEM_REGN_DODAAC" EXPRESSIONTYPE ="GENERAL" NAME ="exp_ITEM_REGN_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="STORE_DODAAC" EXPRESSIONTYPE ="GENERAL" NAME ="STORE_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="item_id" EXPRESSIONTYPE ="GENERAL" NAME ="item_id" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id_std" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id_HQ" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id_REGN" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="decode( true,&#xD;&#xA;not isnull(gtin_id_std), gtin_id_std,&#xD;&#xA;isnull(gtin_id_std) and isnull(gtin_id_REGN) and not isnull(gtin_id_HQ),gtin_id_HQ,&#xD;&#xA;isnull(gtin_id_std) and isnull(gtin_id_HQ) and not isnull(gtin_id_REGN),gtin_id_REGN,&#xD;&#xA;NULL)&#xD;&#xA;" EXPRESSIONTYPE ="GENERAL" NAME ="exp_gtin_id" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="item_desc" EXPRESSIONTYPE ="GENERAL" NAME ="item_desc" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="brnd_nm" EXPRESSIONTYPE ="GENERAL" NAME ="brnd_nm" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="item_size" EXPRESSIONTYPE ="GENERAL" NAME ="item_size" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="7" SCALE ="2"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="um_cd" EXPRESSIONTYPE ="GENERAL" NAME ="um_cd" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="4" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_comdty_cd" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="lpad(to_char(dibs_comdty_cd),4,&apos;0&apos;)" EXPRESSIONTYPE ="GENERAL" NAME ="exp_categ" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="10" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="strt_dt_HQ" EXPRESSIONTYPE ="GENERAL" NAME ="strt_dt_HQ" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="stop_dt_HQ" EXPRESSIONTYPE ="GENERAL" NAME ="stop_dt_HQ" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="strt_dt_REGN" EXPRESSIONTYPE ="GENERAL" NAME ="strt_dt_REGN" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="stop_dt_REGN" EXPRESSIONTYPE ="GENERAL" NAME ="stop_dt_REGN" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="store_stkg_cd_REGN" EXPRESSIONTYPE ="GENERAL" NAME ="store_stkg_cd_REGN" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="store_cls_cd_REGN" EXPRESSIONTYPE ="GENERAL" NAME ="store_cls_cd_REGN" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="store_stkg_cd_HQ" EXPRESSIONTYPE ="GENERAL" NAME ="store_stkg_cd_HQ" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="store_cls_cd_HQ" EXPRESSIONTYPE ="GENERAL" NAME ="store_cls_cd_HQ" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="SESSSTARTTIME" EXPRESSIONTYPE ="GENERAL" NAME ="exp_load_dt" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="STORE_SECTION" EXPRESSIONTYPE ="GENERAL" NAME ="STORE_SECTION" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="PLANOGRAM_GRP" EXPRESSIONTYPE ="GENERAL" NAME ="PLANOGRAM_GRP" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="50" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="categ_mgr_name" EXPRESSIONTYPE ="GENERAL" NAME ="categ_mgr_name" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="buyer_name" EXPRESSIONTYPE ="GENERAL" NAME ="buyer_name" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="dibs_gnrc_item_desc" EXPRESSIONTYPE ="GENERAL" NAME ="dibs_gnrc_item_desc" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="100" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="Lookup buyer name" NAME ="lkp_RF_BUYER" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="buyer_nbr" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="buyer_name" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="last_modified_by_user" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="last_modified_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_buyer_nbr" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="5" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="RF_BUYER"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="buyer_nbr = exp_buyer_nbr"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="EDW_DIMENSION"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="6"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="Lookup Category Description" NAME ="lkp_RF_POS_DIBS_CROSSREF" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="pos_dept" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="pos_categ_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="pos_sgmt_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_dept" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="10" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_category_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="4" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_dept_nbr" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_comdty_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_gnrc_item_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="pos_mjr_dept" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_comdty_desc" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_gnrc_item_desc" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="100" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="buyer_nbr" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="categ_mgr_nbr" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="IN_category_nbr" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="4" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="RF_POS_DIBS_CROSSREF"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="dibs_category_cd = IN_category_nbr"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="EDW_DB"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="6"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="lkp_REGN_ITEM_HIST_HQ" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="strt_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="stop_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="std_item_add_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="store_stkg_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="store_cls_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="item_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_regn_dodaac" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_item_own_dodaac" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_item_id" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="REGN_ITEM_HIST_LKP"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="dibs_regn_dodaac = dibs_item_own_dodaac AND item_id = exp_item_id"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="Relational:RETAIL_SALES_DB"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="0"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="lkp_RF_PLANOGRAM_GRP" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="DIBS_CATEGORY_CD" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_SECTION" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="PLANOGRAM_GRP" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="50" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="DIBS_GNRC_ITEM_DESC" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="100" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_category_nbr" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="5" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="rf_planogram_grp"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="DIBS_CATEGORY_CD = exp_category_nbr"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="EDW_DIMENSION"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="6"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="exp_Convert_Item" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Expression" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="item_id" EXPRESSIONTYPE ="GENERAL" NAME ="item_id" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="TO_DECIMAL(item_id)" EXPRESSIONTYPE ="GENERAL" NAME ="exp_item_id" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="&apos;HQCAAA&apos;" EXPRESSIONTYPE ="GENERAL" NAME ="epx_HQ_regn" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="STORE_DODAAC" EXPRESSIONTYPE ="GENERAL" NAME ="STORE_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="ITEM_REGN_DODAAC" EXPRESSIONTYPE ="GENERAL" NAME ="ITEM_REGN_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="lkp_REGN_ITEM_HIST_DIBS" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="strt_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="stop_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="std_item_add_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="store_stkg_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="store_cls_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="item_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_regn_dodaac" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_item_own_dodaac" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_item_id" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="REGN_ITEM_HIST_LKP"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="dibs_regn_dodaac = dibs_item_own_dodaac AND item_id = exp_item_id"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="Relational:RETAIL_SALES_DB"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="0"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="exp_Parse_Store_Item" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Expression" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" EXPRESSION ="STORE_ITEM_KEY" EXPRESSIONTYPE ="GENERAL" NAME ="STORE_ITEM_KEY" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="integer" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="to_integer(substr(STORE_ITEM_KEY,1,4))" EXPRESSIONTYPE ="GENERAL" NAME ="exp_store_nbr" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="10" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="ERROR(&apos;transformation error&apos;)" DESCRIPTION ="" EXPRESSION ="substr(STORE_ITEM_KEY,5,14)" EXPRESSIONTYPE ="GENERAL" NAME ="exp_item" PICTURETEXT ="" PORTTYPE ="OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="Lookup Category Manager name" NAME ="lkp_RF_CATEG_MGR" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="categ_mgr_nbr" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="categ_mgr_name" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="last_modified_by_user" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="30" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="last_modified_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_categ_mgr_nbr" PICTURETEXT ="" PORTTYPE ="INPUT" PRECISION ="5" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="RF_CATEG_MGR"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="categ_mgr_nbr = exp_categ_mgr_nbr"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="EDW_DIMENSION"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="6"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="lkp_STD_ITEM_HIST_LKP" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="gtin_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="strt_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="stop_dt" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="brnd_nm" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="um_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="4" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="dibs_comdty_cd" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="item_size" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="7" SCALE ="2"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="item_desc" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="item_id" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_item_id" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="STD_ITEM_HIST_LKP"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="item_id = exp_item_id"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="Relational:RETAIL_SALES_DB"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="0"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="SQ_Shortcut_to_STORE_ITEM_RETAIL" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Source Qualifier" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_ITEM_KEY" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="18" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ITEM_REGN_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_DODAAC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="UPC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="GTIN" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="14" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_ITEM_DESC" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="65" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="BRAND" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="decimal" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ITEM_SIZE" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="7" SCALE ="2"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="UM" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="4" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="CATEG" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="4" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ADD_DT" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="29" SCALE ="9"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_STOCK_CD" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_CLASS_CD" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="HQ_STOCK_CD" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="HQ_CLASS_CD" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="1" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Sql Query" VALUE ="select STORE_ITEM_KEY&#xD;&#xA;from RETAIL_SALES_TST.RETAIL_TRANSACTION&#xD;&#xA;group by STORE_ITEM_KEY&#xD;&#xA;minus&#xD;&#xA;select STORE_ITEM_KEY&#xD;&#xA;from RETAIL_SALES_TST.STORE_ITEM_RETAIL&#xD;&#xA;group by STORE_ITEM_KEY"/>
+            <TABLEATTRIBUTE NAME ="User Defined Join" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Number Of Sorted Ports" VALUE ="0"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Select Distinct" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Is Partitionable" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre SQL" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Post SQL" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Output is deterministic" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output is repeatable" VALUE ="Never"/>
+        </TRANSFORMATION>
+        <TRANSFORMATION DESCRIPTION ="" NAME ="lkp_STORE" OBJECTVERSION ="1" REUSABLE ="NO" TYPE ="Lookup Procedure" VERSIONNUMBER ="1">
+            <TRANSFORMFIELD DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_KEY" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="10" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="GEO_REGN_NBR" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="GEO_REGN_NAME" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="small integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ZONE_NBR" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="5" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ZONE_NAME" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_DODAAC" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="STORE_NAME" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="CONUS_IND" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="MKTG_AREA" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ITEM_REGN_DODAAC" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="6" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="ITEM_REGN_NAME" PICTURETEXT ="" PORTTYPE ="LOOKUP/OUTPUT" PRECISION ="20" SCALE ="0"/>
+            <TRANSFORMFIELD DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="" NAME ="exp_store_nbr" PICTURETEXT ="" PORTTYPE ="INPUT/OUTPUT" PRECISION ="10" SCALE ="0"/>
+            <TABLEATTRIBUTE NAME ="Lookup Sql Override" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup table name" VALUE ="STORE"/>
+            <TABLEATTRIBUTE NAME ="Lookup Source Filter" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Lookup caching enabled" VALUE ="YES"/>
+            <TABLEATTRIBUTE NAME ="Lookup policy on multiple match" VALUE ="Use Any Value"/>
+            <TABLEATTRIBUTE NAME ="Lookup condition" VALUE ="STORE_KEY = exp_store_nbr"/>
+            <TABLEATTRIBUTE NAME ="Connection Information" VALUE ="$Target"/>
+            <TABLEATTRIBUTE NAME ="Source Type" VALUE ="Database"/>
+            <TABLEATTRIBUTE NAME ="Recache if Stale" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Tracing Level" VALUE ="Normal"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache directory name" VALUE ="$PMCacheDir"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache initialize" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup cache persistent" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup Data Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Lookup Index Cache Size" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Dynamic Lookup Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Synchronize Dynamic Cache" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Output Old Value On Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Dynamic Cache Condition" VALUE ="TRUE"/>
+            <TABLEATTRIBUTE NAME ="Cache File Name Prefix" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Re-cache from lookup source" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Insert Else Update" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Update Else Insert" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Datetime Format" VALUE =""/>
+            <TABLEATTRIBUTE NAME ="Thousand Separator" VALUE ="None"/>
+            <TABLEATTRIBUTE NAME ="Decimal Separator" VALUE ="."/>
+            <TABLEATTRIBUTE NAME ="Case Sensitive String Comparison" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Null ordering" VALUE ="Null Is Highest Value"/>
+            <TABLEATTRIBUTE NAME ="Sorted Input" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Lookup source is static" VALUE ="NO"/>
+            <TABLEATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+            <TABLEATTRIBUTE NAME ="Subsecond Precision" VALUE ="0"/>
+        </TRANSFORMATION>
+        <INSTANCE DESCRIPTION ="" NAME ="STORE_ITEM_RETAIL" TRANSFORMATION_NAME ="Shortcut_to_STORE_ITEM_RETAIL" TRANSFORMATION_TYPE ="Target Definition" TYPE ="TARGET"/>
+        <INSTANCE DBDNAME ="RETAIL_SALES" DESCRIPTION ="" NAME ="Shortcut_to_STORE_ITEM_RETAIL" TRANSFORMATION_NAME ="Shortcut_to_STORE_ITEM_RETAIL" TRANSFORMATION_TYPE ="Source Definition" TYPE ="SOURCE"/>
+        <INSTANCE DESCRIPTION ="" NAME ="exp_Create_Item_Row" REUSABLE ="NO" TRANSFORMATION_NAME ="exp_Create_Item_Row" TRANSFORMATION_TYPE ="Expression" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="Lookup buyer name" NAME ="lkp_RF_BUYER" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_RF_BUYER" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="Lookup Category Description" NAME ="lkp_RF_POS_DIBS_CROSSREF" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_RF_POS_DIBS_CROSSREF" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="lkp_REGN_ITEM_HIST_HQ" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_REGN_ITEM_HIST_HQ" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="lkp_RF_PLANOGRAM_GRP" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_RF_PLANOGRAM_GRP" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="exp_Convert_Item" REUSABLE ="NO" TRANSFORMATION_NAME ="exp_Convert_Item" TRANSFORMATION_TYPE ="Expression" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="lkp_REGN_ITEM_HIST_DIBS" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_REGN_ITEM_HIST_DIBS" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="exp_Parse_Store_Item" REUSABLE ="NO" TRANSFORMATION_NAME ="exp_Parse_Store_Item" TRANSFORMATION_TYPE ="Expression" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="Lookup Category Manager name" NAME ="lkp_RF_CATEG_MGR" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_RF_CATEG_MGR" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="lkp_STD_ITEM_HIST_LKP" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_STD_ITEM_HIST_LKP" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <INSTANCE DESCRIPTION ="" NAME ="SQ_Shortcut_to_STORE_ITEM_RETAIL" REUSABLE ="NO" TRANSFORMATION_NAME ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TRANSFORMATION_TYPE ="Source Qualifier" TYPE ="TRANSFORMATION">
+            <ASSOCIATED_SOURCE_INSTANCE NAME ="Shortcut_to_STORE_ITEM_RETAIL"/>
+        </INSTANCE>
+        <INSTANCE DESCRIPTION ="" NAME ="lkp_STORE" REUSABLE ="NO" TRANSFORMATION_NAME ="lkp_STORE" TRANSFORMATION_TYPE ="Lookup Procedure" TYPE ="TRANSFORMATION"/>
+        <CONNECTOR FROMFIELD ="exp_categ" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="CATEG" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="exp_load_dt" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="LOAD_DT" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="STORE_ITEM_KEY" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_ITEM_KEY" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="STORE_DODAAC" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_DODAAC" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="item_id" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="UPC" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="exp_gtin_id" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="GTIN" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="brnd_nm" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="BRAND" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="store_stkg_cd_REGN" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_STOCK_CD" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="store_cls_cd_REGN" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_CLASS_CD" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="store_stkg_cd_HQ" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_STOCK_CD" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="store_cls_cd_HQ" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_CLASS_CD" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="item_desc" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_ITEM_DESC" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="item_size" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_ITEM_SIZE" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="um_cd" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_UM" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="strt_dt_HQ" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_ADD_DT" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="strt_dt_REGN" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="REGN_ADD_DT" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="exp_ITEM_REGN_DODAAC" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="ITEM_REGN_DODAAC" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="stop_dt_REGN" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="REGN_STOP_DT" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="stop_dt_HQ" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="HQ_STOP_DT" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="STORE_SECTION" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="PLANOGRAM_STORE_SECTN_NAME" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="PLANOGRAM_GRP" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="PLANOGRAM_GROUP_NAME" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="categ_mgr_name" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="CATEG_MGR_NAME" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="buyer_name" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="CATEG_BUYER_NAME" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="dibs_gnrc_item_desc" FROMINSTANCE ="exp_Create_Item_Row" FROMINSTANCETYPE ="Expression" TOFIELD ="CATEG_DESC" TOINSTANCE ="STORE_ITEM_RETAIL" TOINSTANCETYPE ="Target Definition"/>
+        <CONNECTOR FROMFIELD ="ADD_DT" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="ADD_DT" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="STORE_STOCK_CD" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="STORE_STOCK_CD" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="STORE_CLASS_CD" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="STORE_CLASS_CD" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="HQ_STOCK_CD" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="HQ_STOCK_CD" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="HQ_CLASS_CD" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="HQ_CLASS_CD" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="ITEM_REGN_DODAAC" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="ITEM_REGN_DODAAC" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="STORE_ITEM_DESC" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="STORE_ITEM_DESC" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="STORE_ITEM_KEY" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="STORE_ITEM_KEY" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="STORE_DODAAC" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="STORE_DODAAC" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="UPC" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="UPC" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="GTIN" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="GTIN" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="BRAND" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="BRAND" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="ITEM_SIZE" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="ITEM_SIZE" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="UM" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="UM" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="CATEG" FROMINSTANCE ="Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Definition" TOFIELD ="CATEG" TOINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" TOINSTANCETYPE ="Source Qualifier"/>
+        <CONNECTOR FROMFIELD ="store_cls_cd" FROMINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="store_cls_cd_REGN" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="store_stkg_cd" FROMINSTANCE ="lkp_REGN_ITEM_HIST_HQ" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="store_stkg_cd_HQ" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="stop_dt" FROMINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="stop_dt_REGN" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="stop_dt" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="stop_dt_HQ" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="std_item_add_dt" FROMINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="strt_dt_REGN" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="std_item_add_dt" FROMINSTANCE ="lkp_REGN_ITEM_HIST_HQ" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="strt_dt_HQ" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="STORE_SECTION" FROMINSTANCE ="lkp_RF_PLANOGRAM_GRP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="STORE_SECTION" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="PLANOGRAM_GRP" FROMINSTANCE ="lkp_RF_PLANOGRAM_GRP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="PLANOGRAM_GRP" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="categ_mgr_name" FROMINSTANCE ="lkp_RF_CATEG_MGR" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="categ_mgr_name" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="buyer_name" FROMINSTANCE ="lkp_RF_BUYER" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="buyer_name" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="dibs_gnrc_item_desc" FROMINSTANCE ="lkp_RF_POS_DIBS_CROSSREF" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="dibs_gnrc_item_desc" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="store_cls_cd" FROMINSTANCE ="lkp_REGN_ITEM_HIST_HQ" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="store_cls_cd_HQ" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="gtin_id" FROMINSTANCE ="lkp_REGN_ITEM_HIST_HQ" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="gtin_id_HQ" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="gtin_id" FROMINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="gtin_id_REGN" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="ITEM_REGN_DODAAC" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="exp_ITEM_REGN_DODAAC" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="gtin_id" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="gtin_id_std" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="brnd_nm" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="brnd_nm" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="item_desc" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="item_desc" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="item_size" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="item_size" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="um_cd" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="um_cd" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="dibs_comdty_cd" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="dibs_comdty_cd" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="STORE_ITEM_KEY" FROMINSTANCE ="exp_Parse_Store_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_ITEM_KEY" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="STORE_DODAAC" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="STORE_DODAAC" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="item_id" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="item_id" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="store_stkg_cd" FROMINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="store_stkg_cd_REGN" TOINSTANCE ="exp_Create_Item_Row" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="buyer_nbr" FROMINSTANCE ="lkp_RF_POS_DIBS_CROSSREF" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="exp_buyer_nbr" TOINSTANCE ="lkp_RF_BUYER" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="categ_mgr_nbr" FROMINSTANCE ="lkp_RF_POS_DIBS_CROSSREF" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="exp_categ_mgr_nbr" TOINSTANCE ="lkp_RF_CATEG_MGR" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="dibs_comdty_cd" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="IN_category_nbr" TOINSTANCE ="lkp_RF_POS_DIBS_CROSSREF" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="epx_HQ_regn" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="dibs_item_own_dodaac" TOINSTANCE ="lkp_REGN_ITEM_HIST_HQ" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="exp_item_id" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="exp_item_id" TOINSTANCE ="lkp_REGN_ITEM_HIST_HQ" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="dibs_comdty_cd" FROMINSTANCE ="lkp_STD_ITEM_HIST_LKP" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="exp_category_nbr" TOINSTANCE ="lkp_RF_PLANOGRAM_GRP" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="STORE_DODAAC" FROMINSTANCE ="lkp_STORE" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="STORE_DODAAC" TOINSTANCE ="exp_Convert_Item" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="ITEM_REGN_DODAAC" FROMINSTANCE ="lkp_STORE" FROMINSTANCETYPE ="Lookup Procedure" TOFIELD ="ITEM_REGN_DODAAC" TOINSTANCE ="exp_Convert_Item" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="exp_item_id" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="exp_item_id" TOINSTANCE ="lkp_REGN_ITEM_HIST_DIBS" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="exp_item_id" FROMINSTANCE ="exp_Convert_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="exp_item_id" TOINSTANCE ="lkp_STD_ITEM_HIST_LKP" TOINSTANCETYPE ="Lookup Procedure"/>
+        <CONNECTOR FROMFIELD ="exp_item" FROMINSTANCE ="exp_Parse_Store_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="item_id" TOINSTANCE ="exp_Convert_Item" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="STORE_ITEM_KEY" FROMINSTANCE ="SQ_Shortcut_to_STORE_ITEM_RETAIL" FROMINSTANCETYPE ="Source Qualifier" TOFIELD ="STORE_ITEM_KEY" TOINSTANCE ="exp_Parse_Store_Item" TOINSTANCETYPE ="Expression"/>
+        <CONNECTOR FROMFIELD ="exp_store_nbr" FROMINSTANCE ="exp_Parse_Store_Item" FROMINSTANCETYPE ="Expression" TOFIELD ="exp_store_nbr" TOINSTANCE ="lkp_STORE" TOINSTANCETYPE ="Lookup Procedure"/>
+        <TARGETLOADORDER ORDER ="1" TARGETINSTANCE ="STORE_ITEM_RETAIL"/>
+        <ERPINFO/>
+    </MAPPING>
+    <SHORTCUT COMMENTS ="" DBDNAME ="RETAIL_SALES" FOLDERNAME ="EDW_Shared" NAME ="Shortcut_to_STORE_ITEM_RETAIL" OBJECTSUBTYPE ="Source Definition" OBJECTTYPE ="SOURCE" REFERENCEDDBD ="RETAIL_SALES" REFERENCETYPE ="LOCAL" REFOBJECTNAME ="STORE_ITEM_RETAIL" REPOSITORYNAME ="REP_SVC_PROD" VERSIONNUMBER ="4"/>
+    <SHORTCUT COMMENTS ="" FOLDERNAME ="EDW_Shared" NAME ="Shortcut_to_STORE_ITEM_RETAIL" OBJECTSUBTYPE ="Target Definition" OBJECTTYPE ="TARGET" REFERENCETYPE ="LOCAL" REFOBJECTNAME ="STORE_ITEM_RETAIL" REPOSITORYNAME ="REP_SVC_PROD" VERSIONNUMBER ="5"/>
+</FOLDER>
+<FOLDER NAME="EDW_Shared" GROUP="" OWNER="Administrator" SHARED="SHARED" DESCRIPTION="" PERMISSIONS="rwx---rw-" UUID="6d51e151-5685-41eb-872e-dd973b97de38">
+    <SOURCE BUSINESSNAME ="" DATABASETYPE ="Teradata" DBDNAME ="RETAIL_SALES" DESCRIPTION ="" NAME ="STORE_ITEM_RETAIL" OBJECTVERSION ="1" OWNERNAME ="EDW_DIMENSION_TST" VERSIONNUMBER ="4">
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="1" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="PRIMARY KEY" LENGTH ="0" LEVEL ="0" NAME ="STORE_ITEM_KEY" NULLABLE ="NOTNULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="18" PHYSICALOFFSET ="0" PICTURETEXT ="" PRECISION ="18" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="2" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="ITEM_REGN_DODAAC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="6" PHYSICALOFFSET ="18" PICTURETEXT ="" PRECISION ="6" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="3" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="STORE_DODAAC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="6" PHYSICALOFFSET ="24" PICTURETEXT ="" PRECISION ="6" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="4" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="UPC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="14" PHYSICALOFFSET ="30" PICTURETEXT ="" PRECISION ="14" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="5" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="GTIN" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="14" PHYSICALOFFSET ="44" PICTURETEXT ="" PRECISION ="14" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="6" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="STORE_ITEM_DESC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="65" PHYSICALOFFSET ="58" PICTURETEXT ="" PRECISION ="65" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="7" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="BRAND" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="20" PHYSICALOFFSET ="123" PICTURETEXT ="" PRECISION ="20" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="decimal" DESCRIPTION ="" FIELDNUMBER ="8" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="9" LEVEL ="0" NAME ="ITEM_SIZE" NULLABLE ="NULL" OCCURS ="0" OFFSET ="0" PHYSICALLENGTH ="7" PHYSICALOFFSET ="143" PICTURETEXT ="" PRECISION ="7" SCALE ="2" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="9" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="UM" NULLABLE ="NULL" OCCURS ="0" OFFSET ="9" PHYSICALLENGTH ="4" PHYSICALOFFSET ="150" PICTURETEXT ="" PRECISION ="4" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="10" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="CATEG" NULLABLE ="NULL" OCCURS ="0" OFFSET ="9" PHYSICALLENGTH ="4" PHYSICALOFFSET ="154" PICTURETEXT ="" PRECISION ="4" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="11" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="ADD_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="9" PHYSICALLENGTH ="10" PHYSICALOFFSET ="158" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="12" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="STORE_STOCK_CD" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="1" PHYSICALOFFSET ="168" PICTURETEXT ="" PRECISION ="1" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="13" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="STORE_CLASS_CD" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="1" PHYSICALOFFSET ="169" PICTURETEXT ="" PRECISION ="1" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="14" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="HQ_STOCK_CD" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="1" PHYSICALOFFSET ="170" PICTURETEXT ="" PRECISION ="1" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="15" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="HQ_CLASS_CD" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="1" PHYSICALOFFSET ="171" PICTURETEXT ="" PRECISION ="1" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="16" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="HQ_ITEM_DESC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="65" PHYSICALOFFSET ="172" PICTURETEXT ="" PRECISION ="65" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="decimal" DESCRIPTION ="" FIELDNUMBER ="17" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="9" LEVEL ="0" NAME ="HQ_ITEM_SIZE" NULLABLE ="NULL" OCCURS ="0" OFFSET ="28" PHYSICALLENGTH ="7" PHYSICALOFFSET ="237" PICTURETEXT ="" PRECISION ="7" SCALE ="2" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="18" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="HQ_UM" NULLABLE ="NULL" OCCURS ="0" OFFSET ="37" PHYSICALLENGTH ="4" PHYSICALOFFSET ="244" PICTURETEXT ="" PRECISION ="4" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="19" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="HQ_ADD_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="37" PHYSICALLENGTH ="10" PHYSICALOFFSET ="248" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="20" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="REGN_ADD_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="56" PHYSICALLENGTH ="10" PHYSICALOFFSET ="258" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="21" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="STOP_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="75" PHYSICALLENGTH ="10" PHYSICALOFFSET ="268" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="22" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="HQ_STOP_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="94" PHYSICALLENGTH ="10" PHYSICALOFFSET ="278" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="23" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="REGN_STOP_DT" NULLABLE ="NULL" OCCURS ="0" OFFSET ="113" PHYSICALLENGTH ="10" PHYSICALOFFSET ="288" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="timestamp" DESCRIPTION ="" FIELDNUMBER ="24" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="19" LEVEL ="0" NAME ="LOAD_DT" NULLABLE ="NOTNULL" OCCURS ="0" OFFSET ="132" PHYSICALLENGTH ="19" PHYSICALOFFSET ="298" PICTURETEXT ="" PRECISION ="19" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="25" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="CATEG_DESC" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="65" PHYSICALOFFSET ="317" PICTURETEXT ="" PRECISION ="65" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="26" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="CATEG_MGR_NAME" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="30" PHYSICALOFFSET ="382" PICTURETEXT ="" PRECISION ="30" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="27" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="CATEG_BUYER_NAME" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="30" PHYSICALOFFSET ="412" PICTURETEXT ="" PRECISION ="30" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="28" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="PLANOGRAM_GROUP_NAME" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="50" PHYSICALOFFSET ="442" PICTURETEXT ="" PRECISION ="50" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="29" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="PLANOGRAM_STORE_SECTN_NAME" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="20" PHYSICALOFFSET ="492" PICTURETEXT ="" PRECISION ="20" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="smallint" DESCRIPTION ="" FIELDNUMBER ="30" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="6" LEVEL ="0" NAME ="CASE_QTY" NULLABLE ="NULL" OCCURS ="0" OFFSET ="151" PHYSICALLENGTH ="5" PHYSICALOFFSET ="512" PICTURETEXT ="" PRECISION ="5" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="integer" DESCRIPTION ="" FIELDNUMBER ="31" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="11" LEVEL ="0" NAME ="STORE_DEPT_KEY" NULLABLE ="NULL" OCCURS ="0" OFFSET ="157" PHYSICALLENGTH ="10" PHYSICALOFFSET ="517" PICTURETEXT ="" PRECISION ="10" SCALE ="0" USAGE_FLAGS =""/>
+        <SOURCEFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="32" FIELDPROPERTY ="0" FIELDTYPE ="ELEMITEM" HIDDEN ="NO" KEYTYPE ="NOT A KEY" LENGTH ="0" LEVEL ="0" NAME ="STD_ITEM_IND" NULLABLE ="NULL" OCCURS ="0" OFFSET ="168" PHYSICALLENGTH ="1" PHYSICALOFFSET ="527" PICTURETEXT ="" PRECISION ="1" SCALE ="0" USAGE_FLAGS =""/>
+    </SOURCE>
+    <TARGET BUSINESSNAME ="" CONSTRAINT ="" DATABASETYPE ="Teradata" DESCRIPTION ="" NAME ="STORE_ITEM_RETAIL" OBJECTVERSION ="1" TABLEOPTIONS ="" VERSIONNUMBER ="5">
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="1" KEYTYPE ="PRIMARY KEY" NAME ="STORE_ITEM_KEY" NULLABLE ="NOTNULL" PICTURETEXT ="" PRECISION ="18" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="2" KEYTYPE ="NOT A KEY" NAME ="ITEM_REGN_DODAAC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="6" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="3" KEYTYPE ="NOT A KEY" NAME ="STORE_DODAAC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="6" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="4" KEYTYPE ="NOT A KEY" NAME ="UPC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="14" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="5" KEYTYPE ="NOT A KEY" NAME ="GTIN" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="14" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="6" KEYTYPE ="NOT A KEY" NAME ="STORE_ITEM_DESC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="65" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="7" KEYTYPE ="NOT A KEY" NAME ="BRAND" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="20" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="decimal" DESCRIPTION ="" FIELDNUMBER ="8" KEYTYPE ="NOT A KEY" NAME ="ITEM_SIZE" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="7" SCALE ="2"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="9" KEYTYPE ="NOT A KEY" NAME ="UM" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="4" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="10" KEYTYPE ="NOT A KEY" NAME ="CATEG" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="4" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="11" KEYTYPE ="NOT A KEY" NAME ="ADD_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="12" KEYTYPE ="NOT A KEY" NAME ="STORE_STOCK_CD" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="1" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="13" KEYTYPE ="NOT A KEY" NAME ="STORE_CLASS_CD" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="1" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="14" KEYTYPE ="NOT A KEY" NAME ="HQ_STOCK_CD" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="1" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="15" KEYTYPE ="NOT A KEY" NAME ="HQ_CLASS_CD" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="1" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="16" KEYTYPE ="NOT A KEY" NAME ="HQ_ITEM_DESC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="65" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="decimal" DESCRIPTION ="" FIELDNUMBER ="17" KEYTYPE ="NOT A KEY" NAME ="HQ_ITEM_SIZE" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="7" SCALE ="2"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="18" KEYTYPE ="NOT A KEY" NAME ="HQ_UM" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="4" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="19" KEYTYPE ="NOT A KEY" NAME ="HQ_ADD_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="20" KEYTYPE ="NOT A KEY" NAME ="REGN_ADD_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="21" KEYTYPE ="NOT A KEY" NAME ="STOP_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="22" KEYTYPE ="NOT A KEY" NAME ="HQ_STOP_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="date" DESCRIPTION ="" FIELDNUMBER ="23" KEYTYPE ="NOT A KEY" NAME ="REGN_STOP_DT" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="timestamp" DESCRIPTION ="" FIELDNUMBER ="24" KEYTYPE ="NOT A KEY" NAME ="LOAD_DT" NULLABLE ="NOTNULL" PICTURETEXT ="" PRECISION ="19" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="25" KEYTYPE ="NOT A KEY" NAME ="CATEG_DESC" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="65" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="26" KEYTYPE ="NOT A KEY" NAME ="CATEG_MGR_NAME" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="30" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="27" KEYTYPE ="NOT A KEY" NAME ="CATEG_BUYER_NAME" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="30" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="varchar" DESCRIPTION ="" FIELDNUMBER ="28" KEYTYPE ="NOT A KEY" NAME ="PLANOGRAM_GROUP_NAME" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="50" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="29" KEYTYPE ="NOT A KEY" NAME ="PLANOGRAM_STORE_SECTN_NAME" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="20" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="smallint" DESCRIPTION ="" FIELDNUMBER ="30" KEYTYPE ="NOT A KEY" NAME ="CASE_QTY" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="5" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="integer" DESCRIPTION ="" FIELDNUMBER ="31" KEYTYPE ="NOT A KEY" NAME ="STORE_DEPT_KEY" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="10" SCALE ="0"/>
+        <TARGETFIELD BUSINESSNAME ="" DATATYPE ="char" DESCRIPTION ="" FIELDNUMBER ="32" KEYTYPE ="NOT A KEY" NAME ="STD_ITEM_IND" NULLABLE ="NULL" PICTURETEXT ="" PRECISION ="1" SCALE ="0"/>
+    </TARGET>
+</FOLDER>
+</REPOSITORY>
+</POWERMART>
